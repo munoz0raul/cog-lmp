@@ -1,0 +1,35 @@
+# /lmp-cog-qemuarm64-secureboot/docker-compose.yml
+# https://source.foundries.io/factories/lmp-demo/lmp-manifest.git/?h=lmp-cog
+# docker import lmp-factory-image-raspberrypi4-64.tar.bz2 munoz0raul/lmp-cog-qemuarm64-secureboot
+# docker push munoz0raul/lmp-cog-qemuarm64-secureboot
+version: '3.6'
+
+services:
+  qrcode_lmp-cog:
+    image: munoz0raul/lmp-cog-qemuarm64-secureboot:target-65
+    restart: always
+    tty: true
+    network_mode: "host"
+    entrypoint: [ "/bin/bash" ]
+    command: [ "/usr/share/cog/cog.sh" ]
+    tmpfs:
+      - /run
+      - /var/lock
+      - /var/log
+      - /tmp
+    volumes:
+      - /run/user/63:/run/user/63
+      - /dev/dri:/dev/dri
+      - ./cog.sh:/usr/share/cog/cog.sh
+      - ./index.html:/index.html
+      - ./image.png:/image.png
+    device_cgroup_rules:
+      - 'c 226:* rmw'
+    environment:
+      WAYLAND_USER: "weston"
+      XDG_RUNTIME_DIR: "/run/user/63"
+      WAYLAND_DISPLAY: "wayland-1"
+      TIMER: "0"
+      COG_PLATFORM_WL_VIEW_FULLSCREEN: "0"
+      COG_PLATFORM_WL_VIEW_WIDTH: "1280"
+      COG_PLATFORM_WL_VIEW_HEIGHT: "768"
