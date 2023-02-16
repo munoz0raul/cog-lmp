@@ -23,6 +23,7 @@ services:
       - ./cog.sh:/usr/share/cog/cog.sh
       - ./index.html:/index.html
       - ./image.png:/image.png
+      - ./cog:/usr/bin/cog
     device_cgroup_rules:
       - 'c 226:* rmw'
     environment:
@@ -33,3 +34,4 @@ services:
       COG_PLATFORM_WL_VIEW_FULLSCREEN: "0"
       COG_PLATFORM_WL_VIEW_WIDTH: "1280"
       COG_PLATFORM_WL_VIEW_HEIGHT: "768"
+      G_MESSAGES_DEBUG: "all"
