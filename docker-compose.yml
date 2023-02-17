@@ -24,6 +24,7 @@ services:
       - ./index.html:/index.html
       - ./image.png:/image.png
       - ./cog:/usr/bin/cog
+      - ./libcogplatform-wl.so:/lib/cog/modules/libcogplatform-wl.so
     device_cgroup_rules:
       - 'c 226:* rmw'
     environment:
